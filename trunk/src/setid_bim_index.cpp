@@ -19,6 +19,8 @@
 #include <fstream>
 #include <iostream>
 
+#include <algorithm>
+
 #include "setid_bim_index.h"
 
 
@@ -92,7 +94,7 @@ Hasht::Hasht(char * setID, char * bim, char* mwa, int * myerror)
 	if (*myerror != 0)
 		return;
 
-	for (int i = 0; i < m_num_of_snps; ++ i)
+	for (size_t i = 0; i < m_num_of_snps; ++ i)
 		delete [] this->m_bimf_snpsid[i];
 	delete [] this->m_bimf_snpsid;
 	delete [] this->m_bimf_sorted;
@@ -110,7 +112,7 @@ Hasht::~Hasht()
 	delete [] this->m_hash_table;
 	///delete [] this->m_snp_sets;  // Don't remove this line! This delete will be applyed from bed_reader module destructor
 
-	for (int i = 0; i < m_num_of_snps_insetid; ++ i)
+	for (size_t i = 0; i < m_num_of_snps_insetid; ++ i)
 		delete [] this->m_setidf_setid[i];
 	delete [] this->m_setidf_setid;
 }
@@ -135,7 +137,7 @@ void Hasht::upload_snpid_from_setid_build_hash(int * myerror)
 		return;
 	}
 
-	this->m_hash_table = new int[this->m_num_of_snps_insetid_org +1];
+	this->m_hash_table = new size_t[this->m_num_of_snps_insetid_org +1];
 	this->m_setidf_setid = new char*[this->m_num_of_snps_insetid_org +1];
 
 	this->m_setid.open(this->m_setidfile);
@@ -220,7 +222,7 @@ void Hasht::Get_Num_of_SNPs_in_SetID(int * myerror){
 //=======================================================================
 int Hasht::binsearch(const char* source)//int ar[],int size,
 {
-	int lb = 0,	ub = this->m_num_of_snps-1,	mid;             //lb=>lower bound,ub=>upper bound
+	size_t lb = 0,	ub = this->m_num_of_snps-1,	mid;             //lb=>lower bound,ub=>upper bound
 	for( ;lb <= ub; )
 	{
 		mid = (lb + ub) / 2;
@@ -255,18 +257,20 @@ void Hasht::upload_snpid_from_bim(int * myerror)
 		return;
 	}
 
-	this->m_num_of_snps = -1;//0;
+	this->m_num_of_snps = 0;
 	while (!this->m_bim.eof( ) )
     {
 		getline(this->m_bim, line);
 		this->m_num_of_snps++;
 	}
+	// accounts for starting at -1
+	--this->m_num_of_snps;
 
 	this->m_bim.close();
 	//----------------------------------------------
 
 	m_snp_sets = new SNP_info[this->m_num_of_snps];
-	for (int j = 0; j < m_num_of_snps;++j)
+	for (size_t j = 0; j < m_num_of_snps;++j)
 	{
 		this->m_snp_sets[j].letters[0] = NULL;
 		this->m_snp_sets[j].letters[1] = NULL;
@@ -288,10 +292,11 @@ void Hasht::upload_snpid_from_bim(int * myerror)
 
 
 	m_bimf_snpsid = new char*[this->m_num_of_snps];
-	m_bimf_sorted = new int[this->m_num_of_snps];
+	m_bimf_sorted = new size_t[this->m_num_of_snps];
 
-	for (int i = 0; i < m_num_of_snps;++i)
+	for (size_t i = 0; i < m_num_of_snps;++i)
     {
+		m_bimf_sorted[i] = i;
 		tokens.clear();
 		getline(this->m_bim, line);
         //Tokenize(line, tokens, "	");
@@ -326,7 +331,11 @@ void Hasht::upload_snpid_from_bim(int * myerror)
 	}
 	this->m_bim.close();
 
-	sort_data::sort((const void *)m_bimf_snpsid, m_bimf_sorted, m_num_of_snps, (DATA2SORT)D_CHARSTAR, (int)0, (int)0);
+	sort_data::sort<char*, sort_data::char_ptr_less>(m_bimf_snpsid, m_bimf_sorted, m_num_of_snps);
+
+
+
+	//sort_data::sort((const void *)m_bimf_snpsid, m_bimf_sorted, m_num_of_snps, (DATA2SORT)D_CHARSTAR, (int)0, (int)0);
 
 }
 //=======================================================================

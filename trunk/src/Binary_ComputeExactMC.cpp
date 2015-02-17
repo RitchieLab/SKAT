@@ -385,7 +385,7 @@ int     ComputeExactMC::Run(){
 	}
     
     // Compute p-values 
-	for(int l=0;l< m_Q.size(); l++){
+	for(unsigned int l=0;l< m_Q.size(); l++){
 		double n_num   =0;
 		double n_same  =0;
         //int     n1=0;
@@ -460,8 +460,7 @@ int  ComputeExactMC::put_results(double * teststat, double prob){
 
 int     ComputeExactMC::GetPvalues(double * pval, double * pval_same){
     
-    int i;
-    for(i=0;i< m_pval.size(); i++){
+    for(unsigned int i=0;i< m_pval.size(); i++){
         
         
         pval[i]= m_pval[i];
@@ -475,7 +474,7 @@ int     ComputeExactMC::GetPvalues(double * pval, double * pval_same){
 
 int     ComputeExactMC::PrintPvals(){
     
-    for(int i=0;i< m_pval.size(); i++){
+    for(unsigned int i=0;i< m_pval.size(); i++){
         //for(int i=0;i<5; i++){
         
         Rprintf("[%e][%e]\n", m_pval[i],m_pval_same[i]);        

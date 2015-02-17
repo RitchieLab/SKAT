@@ -57,8 +57,8 @@ template<class T> class CDArray
 private:
 	
 	T** m_pData;		// the actual array of data
-	long m_nSize;		// # of elements (upperBound + 1)
-	long m_nMaxSize;	// max allocated
+	size_t m_nSize;		// # of elements (upperBound + 1)
+	size_t m_nMaxSize;	// max allocated
 	int m_nGrowBy;		// grow amount
 public:
 	//===========================================================
@@ -107,7 +107,7 @@ public:
 		m_nMaxSize = 0;
 		m_nGrowBy = 0;
 		
-		int inSize = array->GetSize();
+		size_t inSize = array->GetSize();
 		T** inData = array->GetData();
 		
 		SetSize(inSize);
@@ -147,16 +147,16 @@ public:
 	//===========================================================
 	// Attributes
 	//===========================================================
-	long GetSize() { return m_nSize; }   
+	size_t GetSize() { return m_nSize; }
     bool IsEmpty(){ return GetSize() == 0; }  
-	long GetUpperBound() { return m_nSize-1; } 
+	size_t GetUpperBound() { return m_nSize-1; }
 	
 	//===========================================================
 	// Clean All
 	//===========================================================
 	void Free()
 	{
-		for(long i=0;i<m_nSize;i++)
+		for(size_t i=0;i<m_nSize;i++)
         {
             //if( IsDuplicated( i ) )
             //    continue;
@@ -172,7 +172,7 @@ public:
 	// Clean cell
 	//===========================================================
 	
-	void FreeAt(int nIndex,CDARRAY_ACTION action = NONE)
+	void FreeAt(size_t nIndex,CDARRAY_ACTION action = NONE)
 	{
 		if(m_pData[nIndex] != NULL)
 		{
@@ -186,7 +186,7 @@ public:
 	// Replace cell
 	//===========================================================
 	
-	void Replace(int nIndex, T* pElement)
+	void Replace(size_t nIndex, T* pElement)
 	{
 		if(m_pData[nIndex] != NULL)
 		{
@@ -205,7 +205,7 @@ public:
 	}
 	//===========================================================
 	
-	void RemoveAt(int nIndex, int nCount = 1)
+	void RemoveAt(size_t nIndex, size_t nCount = 1)
 	{
 		/*ASSERT(nIndex >= 0);*/
 		/*ASSERT(nCount >= 0);*/
@@ -225,7 +225,7 @@ public:
 	//===========================================================
 	// Accessing elements
 	//===========================================================
-	T* GetAt(int nIndex)
+	T* GetAt(size_t nIndex)
 	{ 
 		/*ASSERT(nIndex >= 0 && nIndex < m_nSize);*/
 		return m_pData[nIndex]; 
@@ -257,7 +257,7 @@ public:
 	//===========================================================
 	// SetAt
 	//===========================================================
-	virtual void SetAt(int nIndex, T* newElement)
+	virtual void SetAt(size_t nIndex, T* newElement)
 	{ 
 		/*ASSERT(nIndex >= 0 && nIndex < m_nSize);*/
 		m_pData[nIndex] = newElement; 
@@ -265,7 +265,7 @@ public:
 	//===========================================================
 	// Potentially growing the array
 	//===========================================================
-	virtual void SetAtGrow(int nIndex, T* newElement)
+	virtual void SetAtGrow(size_t nIndex, T* newElement)
 	{
 		/*ASSERT(nIndex >= 0);*/
 		
@@ -276,7 +276,7 @@ public:
 	//===========================================================
 	// Operations that move elements around
 	//===========================================================
-	virtual void InsertAt(int nIndex, T* newElement, int nCount = 1)
+	virtual void InsertAt(size_t nIndex, T* newElement, size_t nCount = 1)
 	{
 		/*ASSERT(nIndex >= 0);*/    // will expand to meet need
 		/*ASSERT(nCount > 0); */    // zero or negative size not allowed
@@ -360,14 +360,14 @@ public:
 	//===========================================================
 	// Operators
 	//===========================================================
-	T* operator[](int nIndex) { return GetAt(nIndex); }
+	T* operator[](size_t nIndex) { return GetAt(nIndex); }
 	
 	
 	
 	//===========================================================
 	// Set size
 	//===========================================================
-	void SetSize(int nNewSize, int nGrowBy = -1)
+	void SetSize(size_t nNewSize, int nGrowBy = -1)
 	{
 		/*ASSERT(nNewSize >= 0);*/
 		
@@ -413,7 +413,7 @@ public:
 						//  (this avoids heap fragmentation in many situations)
 						nGrowBy = min(1024, max(4, m_nSize / 8));
 					}
-					int nNewMax;
+					size_t nNewMax;
 					if (nNewSize < m_nMaxSize + nGrowBy)
 						nNewMax = m_nMaxSize + nGrowBy;  // granularity
 					else

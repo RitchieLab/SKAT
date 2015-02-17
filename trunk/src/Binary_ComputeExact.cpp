@@ -387,12 +387,12 @@ int     ComputeExact::SaveParam(double * Z0, double *Z1, int k, int m, int total
 
 int     ComputeExact::Run(int test_type){
    
-    int i, j, idx, l;
+    int idx;
     int * array = (int *) SL_calloc(m_k, sizeof(int));
     //SL_setseed(time(NULL));
 	SL_setseed(1);
   
-	for(i=0;i < m_k+1;i++){
+	for(int i=0;i < m_k+1;i++){
         
         memset(array, 0, sizeof(int)* m_k);
         if(m_IsExact[i] == 1){
@@ -421,9 +421,9 @@ int     ComputeExact::Run(int test_type){
     //Get probability 
     idx=0;
     double total_prob_sum = 0;
-	for(i=0;i < m_k+1;i++){
+	for(int i=0;i < m_k+1;i++){
 
-		for(j=idx;j< idx + m_total_k[i];j++){
+		for(int j=idx;j< idx + m_total_k[i];j++){
             
             m_fprob[j] = m_fprob[j] / m_denomi[i] * m_prob_k[i];
             total_prob_sum += m_fprob[j];
@@ -431,9 +431,9 @@ int     ComputeExact::Run(int test_type){
 		idx = idx + m_total_k[i];
 	}
     idx=0;
-	for(i=0;i < m_k+1;i++){
+	for(int i=0;i < m_k+1;i++){
         m_prob_k[i] = 0;
-		for(j=idx;j< idx + m_total_k[i];j++){
+		for(int j=idx;j< idx + m_total_k[i];j++){
             m_fprob[j] = m_fprob[j] / total_prob_sum;
             m_prob_k[i] += m_fprob[j]; // for debugging
 		}	
@@ -444,14 +444,14 @@ int     ComputeExact::Run(int test_type){
     
 	//Rprintf("3\n");
     double temp1=0;
-    for(l=0;l< m_Q.size(); l++){
+    for(unsigned int l=0;l< m_Q.size(); l++){
 		double n_num	=0;
 		double n_same  =0;
        
         
         //Rprintf("Start[%d]\n", l);
         //Rprintf("[%e]\n",  m_Q[l]);
-		for(i=0;i<m_total ; i++){
+		for(int i=0;i<m_total ; i++){
             
                         
             temp1 = m_Q[l] - m_teststat[i];
@@ -480,7 +480,7 @@ int     ComputeExact::Run(int test_type){
 
     m_LargestQ=m_teststat[0];
     m_minP= 0;
-    for(i=0;i<m_total ; i++){
+    for(int i=0;i<m_total ; i++){
         
         temp1 = m_LargestQ - m_teststat[i];
         if(fabs(temp1) <= m_epsilon){
@@ -502,8 +502,7 @@ int     ComputeExact::Run(int test_type){
 
 int     ComputeExact::GetPvalues(double * pval, double * pval_same, double * prob_k, double * minP){
     
-    int i;
-    for(i=0;i< m_pval.size(); i++){
+    for(unsigned int i=0;i< m_pval.size(); i++){
     
         
         pval[i]= m_pval[i];
@@ -512,7 +511,7 @@ int     ComputeExact::GetPvalues(double * pval, double * pval_same, double * pro
     }
 
 
-	for(i=0;i < m_k+1;i++){
+	for(int i=0;i < m_k+1;i++){
         prob_k[i] = m_prob_k[i];
 	}
     
@@ -526,7 +525,7 @@ int     ComputeExact::GetPvalues(double * pval, double * pval_same, double * pro
 
 int     ComputeExact::PrintPval(){
     
-    for(int i=0;i< m_pval.size(); i++){
+    for(unsigned int i=0;i< m_pval.size(); i++){
     //for(int i=0;i<5; i++){
         
        Rprintf("[%e][%e]\n", m_pval[i],m_pval_same[i]);        

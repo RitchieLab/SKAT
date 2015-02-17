@@ -25,7 +25,7 @@ HyperGeo::~HyperGeo(){
     
     
     double * ptemp;
-    for(int i=0;i<m_probtbl.size();i++){
+    for(unsigned int i=0;i<m_probtbl.size();i++){
         
         ptemp = m_probtbl[i];
         SL_free(ptemp);

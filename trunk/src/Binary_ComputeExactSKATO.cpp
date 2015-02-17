@@ -57,29 +57,29 @@ double     ComputeExactSKATO::Cal_Pvalue_Rcorr(double test_skat, double test_C, 
 double ComputeExactSKATO::CalTestStat
 (int k, int * array, bool is_save, bool is_minIdx, int * minIdx ){
     
+	int l, temp;
 
-	int i, j, l, temp;
-    double test_C  = m_teststat_Z0_C;
+	double test_C  = m_teststat_Z0_C;
     double test_skat = 0;
-    double teststat;
+    double teststat = 0;
     memcpy(m_teststat_one, m_teststat_Z0, sizeof(double) *m_m);
     
 	
-    for(i=0;i< k;i++){
+    for(int i=0;i< k;i++){
         l = array[i];
         temp = l*m_m;
-        for(j=0;j< m_m;j++){
+        for(int j=0;j< m_m;j++){
             m_teststat_one[j]+=m_Z1[temp+j] - m_Z0[temp+j] ;
         }
         test_C += m_Z1_C[l] - m_Z0_C[l] ;
     }
     
-	for(j=0;j< m_m;j++){
+	for(int j=0;j< m_m;j++){
 		test_skat+=m_teststat_one[j] * m_teststat_one[j];
 	}
     test_C = test_C * test_C;
     
-    for(i=0; i<m_rcorr.size(); i++){
+    for(unsigned int i=0; i<m_rcorr.size(); i++){
         
         double stat = Cal_Pvalue_Rcorr(test_skat, test_C, i);
         /*if(!is_save){
@@ -127,27 +127,27 @@ double ComputeExactSKATO::CalTestStat
 double      ComputeExactSKATO::CalTestStat_INV(int k, int * array, bool is_save, bool is_minIdx, int * minIdx ){
     
     
-	int i, j, l, temp;
+	int l, temp;
     double test_C  = m_teststat_Z1_C;
     double test_skat = 0;
-    double teststat;
+    double teststat = 0;
     memcpy(m_teststat_one, m_teststat_Z1, sizeof(double) *m_m);
     
-    for(i=0;i< k;i++){
+    for(int i=0;i< k;i++){
         l = array[i];
         temp = l*m_m;
-        for(j=0;j< m_m;j++){
+        for(int j=0;j< m_m;j++){
             m_teststat_one[j]+=m_Z0[temp+j] - m_Z1[temp+j] ;
         }
         test_C += m_Z0_C[l] - m_Z1_C[l] ;
     }
     test_C = test_C * test_C;
     
-	for(j=0;j< m_m;j++){
+	for(int j=0;j< m_m;j++){
 		test_skat+=m_teststat_one[j] * m_teststat_one[j];
 	}
     
-    for(i=0; i<m_rcorr.size(); i++){
+    for(unsigned int i=0; i<m_rcorr.size(); i++){
         
         double stat = Cal_Pvalue_Rcorr(test_skat, test_C, i);
         if(i==0){

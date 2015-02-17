@@ -135,7 +135,7 @@ void Close_MWA()
 
 void Get_TotalNumberofSets(int* Total_Num_SNPSets)
 {
-	MWA_FILE_ID->get_TotalNumberofSets(Total_Num_SNPSets);
+	*Total_Num_SNPSets = MWA_FILE_ID->get_num_of_sets();
 }
 //===============================================================
 	
@@ -151,7 +151,7 @@ void Get_TotalNumberofSets(int* Total_Num_SNPSets)
 
 void Get_TotalNumberofSNPs(int* Total_Num_SNP)
 {
-	MWA_FILE_ID->get_TotalNumberofSNPs(Total_Num_SNP);
+	*Total_Num_SNP = MWA_FILE_ID->get_num_of_snps();
 }
 
 //===============================================================
@@ -168,7 +168,7 @@ void Get_TotalNumberofSNPs(int* Total_Num_SNP)
 
 void Get_TotalNumberofInd( int* Total_Num_IND)
 {
-	MWA_FILE_ID->get_TotalNumberofInd(Total_Num_IND);
+	*Total_Num_IND = MWA_FILE_ID->get_num_of_ind();
 }
 
 
@@ -201,7 +201,7 @@ void Get_TotalNumberofInd( int* Total_Num_IND)
 
 void Get_NumberofSnps(int SetID,int *Num_SNP, int* myerror)
 {
-	MWA_FILE_ID->get_NumberofSnps( SetID, Num_SNP, myerror);
+	*Num_SNP = MWA_FILE_ID->get_NumberofSnps(SetID, myerror);
 } 
 
 //===============================================================
@@ -219,12 +219,12 @@ void Get_NumberofSnps(int SetID,int *Num_SNP, int* myerror)
 //MwoFileReader* MWA_FILE_ID;
 //Open_MWA(MWA_File, MWA_FILE_ID)
 
-void Get_Genotypes( int Set_number, int* Z,int size, int Is_MakeFile, int* myerror) // set_number base on INFO file. The result will be printed to file.
+void Get_Genotypes( int Set_number, int* Z, int size, int Is_MakeFile, int* myerror) // set_number base on INFO file. The result will be printed to file.
 {
 	MWA_FILE_ID->get_set(Set_number, Z, size, myerror, Is_MakeFile); //some integer - enter the value base on CEU.bed.INFO.txt
 }	
 
-void Get_Genotypes_withID( int Set_number, int* Z, char * SNPID,int size, int Is_MakeFile, int* myerror) // set_number base on INFO file. The result will be printed to file.
+void Get_Genotypes_withID( int Set_number, int* Z, char * SNPID, int size, int Is_MakeFile, int* myerror) // set_number base on INFO file. The result will be printed to file.
 {
 	MWA_FILE_ID->get_set(Set_number, Z, size, myerror, Is_MakeFile, SNPID); //some integer - enter the value base on CEU.bed.INFO.txt
 }	

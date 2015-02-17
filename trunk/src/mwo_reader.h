@@ -60,41 +60,34 @@ public:
 
 	MwoFileReader(char* filename, int* myerror, char* info = NULL);
 	~MwoFileReader();
-	void prepare_out_array_print_snpset_to_file(snpset* ss, int n, int* Z,int size, int Is_MakeFile, int* myerror, char * SNPID=NULL);
+	void prepare_out_array_print_snpset_to_file(snpset* ss, int n, int* Z,size_t size, int Is_MakeFile, int* myerror, char * SNPID=NULL);
 	void upload_offsets_table();
-	void get_set(int set_num, int* Z,int size, int* myerror,int Is_MakeFile = 1 , char * SNPID=NULL );
+	void get_set(size_t set_num, int* Z,size_t size, int* myerror,int Is_MakeFile = 1 , char * SNPID=NULL );
 
 	//======================================================
 	//This function returns Total number of SNP Sets in current ".mwa"
 	//RETURN VALUE: Total Number of SNP Sets in the MWA file. 
 	//======================================================
-	int get_num_of_sets(){return this->m_total_num_of_sets;}
+	size_t get_num_of_sets(){return this->m_total_num_of_sets;}
 
-	//======================================================
-	//This function returns Total number of SNP Sets in current ".mwa"
-	//Total_Num_SNPSets : Total Number of SNP Sets in the MWA file. 
-	//======================================================
-	void get_TotalNumberofSets(int *Total_Num_SNPSets){ *Total_Num_SNPSets = this->m_total_num_of_sets; }
-	
 	//======================================================
 	//This function returns Total number of SNP that in work now
 	//Total_Num_SNP : Total Number of SNPs in the MWA file. 
 	//======================================================
-	void get_TotalNumberofSNPs(int *Total_Num_SNP){ *Total_Num_SNP = this->m_total_num_of_snps; }
+	size_t get_num_of_snps(){return this->m_total_num_of_snps;}
 
 	//======================================================
 	//This function returns Total number of IND
 	//Total_Num_SNP : Total Number of individuals in the MWA file. 
 	//======================================================
-	void get_TotalNumberofInd(int *Total_Num_IND) { *Total_Num_IND = this->m_num_of_individuals;}
-	
+	size_t get_num_of_ind(){return this->m_num_of_individuals;}
 		
 	//======================================================
 	//Return a number of SNPs in the given SNP Set. 
 	//SetID : SetID
 	//Num_SNP : number of SNPs in the given SNP Set. 
 	//======================================================
-	void get_NumberofSnps(int SetID,int *Num_SNP,int* myerror);
+	size_t get_NumberofSnps(size_t SetID,int* myerror);
 	
 	
 
@@ -106,16 +99,16 @@ private:
 	CDArray<snpset> m_snpsets;
 	
 	int m_win_size;
-	int m_num_of_bytes_per_line;
+	size_t m_num_of_bytes_per_line;
 	int m_ovlp_size ;
-	int m_num_of_different_snps; // num of snps without repetition - like in BIM file
-	int m_total_num_of_snps;	 // num of snps with repetition like in BUM file + overlaping
-	int m_total_num_of_sets;
-	int m_num_of_individuals;
-	long* m_offsetarr;
-	int* m_set_size;
+	size_t m_num_of_different_snps; // num of snps without repetition - like in BIM file
+	size_t m_total_num_of_snps;	 // num of snps with repetition like in BUM file + overlaping
+	size_t m_total_num_of_sets;
+	size_t m_num_of_individuals;
+	size_t* m_offsetarr;
+	size_t* m_set_size;
 
-	void decode_byte(int* bits_val,char* buff, int* ind_count);
+	void decode_byte(int* bits_val,char* buff, size_t* ind_count);
 	void Tokenize(const std::string& str,
                       std::vector<std::string>& tokens,
                       const std::string& delimiters = " ");

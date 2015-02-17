@@ -15,7 +15,7 @@
 #include <cstring> 
 
 #include "NPsort.h"
-
+/*
 
 //===============================================================================
 //================= SORT FUNCTION ===============================================
@@ -181,7 +181,7 @@ void sort_data::quicksort_asc(int* arr, int left, int right, const int* a, int (
       int i = left, j = right;
       int tmp;
       int pivot = arr[(left + right) / 2];
-      /* partition */
+      // partition
       while (i <= j) {
 		    while(pt2Func(&a[arr[i]], &a[pivot]) < 0) 
                   i++;
@@ -196,7 +196,7 @@ void sort_data::quicksort_asc(int* arr, int left, int right, const int* a, int (
                   j--;
             }
       }
-      /* recursion */
+      // recursion
       if (left < j)
             quicksort_asc(arr, left, j, a, pt2Func);
       if (i < right)
@@ -214,7 +214,7 @@ void sort_data::quicksort_desc(int* arr, int left, int right, const int* a, int 
       int i = left, j = right;
       int tmp;
       int pivot = arr[(left + right) / 2];
-      /* partition */
+      // partition
       while (i <= j) {
             while(pt2Func(&a[arr[i]], &a[pivot]) > 0) 
                   i++;
@@ -229,7 +229,7 @@ void sort_data::quicksort_desc(int* arr, int left, int right, const int* a, int 
                   j--;
             }
       }
-      /* recursion */
+      // recursion
       if (left < j)
             quicksort_desc(arr, left, j, a, pt2Func);
       if (i < right)
@@ -246,7 +246,7 @@ void sort_data::quicksort_asc(int* arr, int left, int right, const double* a, in
       int i = left, j = right;
       int tmp;
       int pivot = arr[(left + right) / 2];
-      /* partition */
+      // partition
       while (i <= j) {
 		    while(pt2Func(&a[arr[i]], &a[pivot]) < 0) 
                   i++;
@@ -261,7 +261,7 @@ void sort_data::quicksort_asc(int* arr, int left, int right, const double* a, in
                   j--;
             }
       }
-      /* recursion */
+      // recursion
       if (left < j)
             quicksort_asc(arr, left, j, a, pt2Func);
       if (i < right)
@@ -278,7 +278,7 @@ void sort_data::quicksort_desc(int* arr, int left, int right, const double* a, i
       int i = left, j = right;
       int tmp;
       int pivot = arr[(left + right) / 2];
-      /* partition */
+      // partition
       while (i <= j) {
 		    while(pt2Func(&a[arr[i]], &a[pivot]) > 0) 
                   i++;
@@ -293,7 +293,7 @@ void sort_data::quicksort_desc(int* arr, int left, int right, const double* a, i
                   j--;
             }
       }
-      /* recursion */
+      // recursion
       if (left < j)
             quicksort_desc(arr, left, j, a, pt2Func);
       if (i < right)
@@ -311,7 +311,7 @@ void sort_data::quicksort_asc(int* arr, int left, int right, char** a, int (*pt2
       int i = left, j = right;
       int tmp;
       int pivot = arr[(left + right) / 2];
-      /* partition */
+      // partition
       while (i <= j) {
             while(pt2Func(a[arr[i]], a[pivot]) < 0) 
                   i++;
@@ -326,7 +326,7 @@ void sort_data::quicksort_asc(int* arr, int left, int right, char** a, int (*pt2
                   j--;
             }
       }
-      /* recursion */
+      // recursion
       if (left < j)
             quicksort_asc(arr, left, j, a, pt2Func);
       if (i < right)
@@ -343,7 +343,7 @@ void sort_data::quicksort_desc(int* arr, int left, int right, char** a, int (*pt
       int i = left, j = right;
       int tmp;
       int pivot = arr[(left + right) / 2];
-      /* partition */
+      // partition
 	  while (i <= j) {
 		  while(pt2Func(a[arr[i]], a[pivot]) > 0) 
 			  i++;
@@ -358,7 +358,7 @@ void sort_data::quicksort_desc(int* arr, int left, int right, char** a, int (*pt
 			  j--;
 		  }
 	  }
-      /* recursion */
+      // recursion
       if (left < j)
             quicksort_desc(arr, left, j, a, pt2Func);
       if (i < right)
@@ -366,3 +366,4 @@ void sort_data::quicksort_desc(int* arr, int left, int right, char** a, int (*pt
 }
 //==================================================================
 
+*/
