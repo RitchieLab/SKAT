@@ -823,7 +823,7 @@ void BedFileReader::encode(int* temp_snp_info,char* encoded_snp_info )
 		}
 
 		ind4enc ++;
-		if (ind4enc == this->m_size_of_esi + 1)
+		if (ind4enc == this->m_size_of_esi+1)
 			break; 
 		else
 		{	
@@ -834,7 +834,7 @@ void BedFileReader::encode(int* temp_snp_info,char* encoded_snp_info )
 			for (int  ii = 0; ii < 8; ++ii)
 				number += a[ii] * (int)pow(2.0,(7-ii));
 			//saving this encoded number to array that will be written into *.mwa file.
-			encoded_snp_info[ind4enc] = (char)number;
+			encoded_snp_info[ind4enc-1] = (char)number;
 			//=============================================
 		}
 	}

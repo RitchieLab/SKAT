@@ -77,7 +77,7 @@ Hasht::Hasht(char * setID, char * bim, char* mwa, int * myerror)
 	this->m_setidfile = setID;
 
 	this->m_bimfile = bim;
-	this->m_num_of_snps_insetid_org = -1;
+	this->m_num_of_snps_insetid_org = 0;
 
 	char log_filename[1000];
 	memset(log_filename,'\0',sizeof(log_filename));
@@ -132,7 +132,7 @@ void Hasht::upload_snpid_from_setid_build_hash(int * myerror)
 	std::vector<std::string> tokens2, tokens3;
 
 	Get_Num_of_SNPs_in_SetID(myerror);
-	if(this->m_num_of_snps_insetid_org < 0){
+	if(this->m_num_of_snps_insetid_org == 0){
 		*myerror = CANT_OPEN_SETID_FILE4READ;
 		return;
 	}
@@ -264,7 +264,7 @@ void Hasht::upload_snpid_from_bim(int * myerror)
 		this->m_num_of_snps++;
 	}
 	// accounts for starting at -1
-	--this->m_num_of_snps;
+    --this->m_num_of_snps;
 
 	this->m_bim.close();
 	//----------------------------------------------
